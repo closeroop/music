@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lyric</title>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script>
+  let el = document.getElementById('app')
+  let lyric = {"kalaokLyric":"","kalaokVersion":0,"lyric":"[by:吴夏葭]\n[00:00.00] 作曲 : 少年佩\n[00:01.00] 作词 : 少年佩\n[00:04.475]编曲：邱昊/张毅\n[00:06.445]制作人：邱昊\n[00:08.189]监制：李纤橙\n[00:10.171]打击乐：Jams\n[00:12.186]混音：严祥博\n[00:13.660]母带：吴涛\n[00:16.268]忽然想起 那年夏天 我弹琴在路边\n[00:23.737]唱着一首不知名的英文歌\n[00:31.959]天色已晚 你从人群中发现了我\n[00:39.899]就这样安静的听着\n[00:48.259]过了很久 我的生活 仍有你在左右\n[00:56.023]聊过夜深 也曾想你到白昼\n[01:04.030]我也想过 是否有一天 我们无路可走\n[01:11.614]二十出头 可已看过多少悲欢离合\n[01:20.501]也许你也忐忑\n[01:24.549]也许你也失落\n[01:28.580]也许你也背着我喝了一杯酒\n[01:36.570]也许你也困惑\n[01:40.513]也许你也不懂\n[01:44.590]可是最美不过那夜和你看过的星空\n[02:14.231]关于以后 我们闲聊时也提及了许多\n[02:22.045]你喜欢小猫 我要养一只笨狗\n[02:30.101]你曾说过 重庆是一座美丽的城市\n[02:37.597]那条种满梧桐 是你走过多年的路\n[02:46.786]如果你也相信\n[02:50.514]如果你也坚定\n[02:54.498]如果你也不在意流言与蜚语\n[03:02.481]如果你也愿意\n[03:06.475]如果你也可以\n[03:10.437]等我们老了以后 就定居在这里\n","lyricInfoType":"Lyric_Loaded_Or_Update","lyricUserId":529319768,"lyricUserName":"吴夏葭","lyricUserOffset":-1,"lyricUserTime":0,"lyricVersion":5,"musicId":529319768,"qfy":false,"transUserId":0,"transUserTime":0,"translateLyric":"","translateVersion":0}
+  let lrc = lyric.lyric.split('\n')
+  let lrcJson = {}
+  for (let line of lrc)  {
+    if (line.trim() && !isNaN(line.match(/\[.*\]/)[0].slice(1,-1).split(':')[0]*60)) {
+      let beforeTime = line.match(/\[.*\]/)[0].slice(1,-1).split(':') // eg ["00", "00.00"]
+      let M_TO_SECOND = beforeTime[0]*60 // 分->秒
+      let SECOND = Math.round(parseFloat(beforeTime[1])) // 秒
+      let lrcIndex = line.indexOf(']')
+      let lyric = line.slice(lrcIndex+1).trim() // 歌词
+      let p =document.createElement('P')
+      p.innerHTML = lyric
+      el.appendChild(p)
+      lrcJson[M_TO_SECOND+SECOND] = lyric
+    }
+  }
+   console.log(lrcJson)
+  let test = [1,3,5,7,9,13,16]
+  let num = 2
+  let line
+  for (let i = 0;i <= test.length;i++) {
+    if(test[i] > num){
+      line = test[i-1]
+      break
+    }
+  }
+  console.log(line)
+</script>
+</html>
